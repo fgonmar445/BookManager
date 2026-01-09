@@ -21,29 +21,33 @@ Incluye sistema de **autenticación segura**, protección CSRF, control de inten
 
 ## 📂 Estructura del proyecto
 
-│   index.php
-│   README.md
-│   test.php
 │
-├───config
-│       auth.php
-│       Database.php
-│       establecer-sesion.php
+├── config/
+│   ├── auth.php
+│   ├── Database.php
+│   └── establecer-sesion.php
+│     
 │
-├───controllers
-│       AuthController.php
-│       LibroController.php
 │
-├───models
-│       Libro.php
-│       User.php
+├── controllers/
+│   ├── AuthController.php
+│   └── LibroController.php
 │
-└───views
-        crear.php
-        dashboard.php
-        editar.php
-        listar.php
-        login.php
+├── models/
+│   ├── Libro.php
+│   └── User.php
+│
+│
+├── views/
+│       ├── crear.php
+│       ├── dashboard.php
+│       ├── editar.php
+│       ├── listar.php
+│       └── login.php
+│
+│
+├── index.php
+└── README.md
 
 
 ---
@@ -134,47 +138,47 @@ Cada formulario del CRUD aplica:
 
 ## ✔️ Sanitización
 
-htmlspecialchars() → evita XSS
+- htmlspecialchars() → evita XSS
 
-trim() → elimina espacios innecesarios
+- trim() → elimina espacios innecesarios
 
-floatval() → convierte precios
+- floatval() → convierte precios
 
-intval() → convierte IDs
+- intval() → convierte IDs
 
-Checkbox convertido a 1 o 0
+- Checkbox convertido a 1 o 0
 
 ## ✔️ Validación
 
-Campos obligatorios
+- Campos obligatorios
 
-Fechas válidas
+- Fechas válidas
 
-Precios numéricos
+- Precios numéricos
 
-Longitud mínima de texto
+- Longitud mínima de texto
 
 # 📘 CRUD de Libros
 
 ## ➕ Crear libro
 
-Formulario en views/crear.php
+- Formulario en views/crear.php
 
-Sanitización de datos
+- Sanitización de datos
 
-Inserción mediante consultas preparadas
+- Inserción mediante consultas preparadas
 
-Redirección a listar con mensaje
+- Redirección a listar con mensaje
 
 ## ✏️ Editar libro
 
-Carga de datos existentes
+- Carga de datos existentes
 
-Validación y sanitización
+- Validación y sanitización
 
-Actualización segura
+- Actualización segura
 
-Redirección a listar
+- Redirección a listar
 
 # 🗑️ Eliminar libro
 
