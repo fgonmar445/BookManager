@@ -20,7 +20,7 @@ Incluye sistema de **autenticación segura**, protección CSRF, control de inten
 ---
 
 ## 📂 Estructura del proyecto
-
+```
 │
 ├── config/
 │   ├── auth.php
@@ -48,7 +48,7 @@ Incluye sistema de **autenticación segura**, protección CSRF, control de inten
 │
 ├── index.php
 └── README.md
-
+```
 
 ---
 
