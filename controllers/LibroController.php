@@ -10,7 +10,6 @@ class LibroController
 
     public function __construct()
     {
-
         // Proteger todo el CRUD
         require_once __DIR__ . '/../config/auth.php';
 
@@ -28,7 +27,16 @@ class LibroController
 
     public function create()
     {
+        $hideNavbar = true;
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            if (
+                !isset($_POST['csrf_token']) ||
+                !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+            ) {
+                die("CSRF token inválido");
+            }
 
             // Sanitización
             $this->libro->titulo = htmlspecialchars(trim($_POST['titulo']));
@@ -51,7 +59,16 @@ class LibroController
 
     public function edit()
     {
+        $hideNavbar = true;
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            if (
+                !isset($_POST['csrf_token']) ||
+                !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+            ) {
+                die("CSRF token inválido");
+            }
 
             // Sanitización
             $this->libro->id = intval($_POST['id']);
@@ -71,7 +88,13 @@ class LibroController
 
         // Mostrar formulario de edición
         if (isset($_GET['id'])) {
-            $this->libro->id = $_GET['id'];
+
+            // Validar ID recibido por GET
+            if (!ctype_digit($_GET['id'])) {
+                die("ID inválido");
+            }
+
+            $this->libro->id = intval($_GET['id']);
             $this->libro->readOne();
 
             if ($this->libro->titulo) {
@@ -93,16 +116,33 @@ class LibroController
 
     public function delete()
     {
-        if (isset($_GET['id'])) {
-            $this->libro->id = $_GET['id'];
+        // Solo aceptar POST
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Método no permitido");
+        }
+        
+        // Validar token CSRF
+        if (
+            !isset($_POST['csrf_token']) ||
+            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+        ) {
+            die("CSRF token inválido");
+        }
 
-            if ($this->libro->delete()) {
-                header("Location: index.php?action=listar&message=deleted");
-                exit();
-            } else {
-                header("Location: index.php?action=listar&message=error_delete");
-                exit();
-            }
+        // Validar ID
+        if (!isset($_POST['id']) || !ctype_digit($_POST['id'])) {
+            die("ID inválido");
+        }
+
+        $this->libro->id = intval($_POST['id']);
+
+        // Intentar eliminar
+        if ($this->libro->delete()) {
+            header("Location: index.php?action=listar&message=deleted");
+            exit();
+        } else {
+            header("Location: index.php?action=listar&message=error_delete");
+            exit();
         }
     }
 }

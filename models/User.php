@@ -1,37 +1,67 @@
 <?php
-require_once __DIR__ . '/../config/Database.php';                      // incluimos el código de conexión a la BD
+require_once __DIR__ . '/../config/Database.php';
 
 class Usuario
 {
     private $PDO;
-    private $tabla_nombre = "users";                 // Tu tabla de usuarios
+    private $tabla_nombre = "users";
 
     public function __construct()
     {
-        $database = new Database();                    // aquí se invoca al constructor Database, que crea la conexión
-        $this->PDO = $database->getConnection();       // y se almacena en el objeto usuario, cuando se invoca su constructor
+        // Crear conexión a la base de datos
+        $database = new Database();
+        $this->PDO = $database->getConnection();
     }
 
-    public function login($idusuario, $password)
-{
-    // 1. Buscar el usuario por su ID
-    $query = "SELECT * FROM " . $this->tabla_nombre . " WHERE idUser = ? LIMIT 1";
-    $stmt = $this->PDO->prepare($query);
-    $stmt->bindParam(1, $idusuario);
-    $stmt->execute();
+    public function login($username, $password)
+    {
+        /******************************************************
+         * 1. Buscar usuario por su identificador
+         ******************************************************/
+        $query = "SELECT idUser, password FROM " . $this->tabla_nombre . " 
+                  WHERE idUser = ? LIMIT 1";
 
-    // 2. Si no existe, devolver false
-    if ($stmt->rowCount() === 0) {
+        $stmt = $this->PDO->prepare($query);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // Hash falso para igualar tiempos en caso de usuario inexistente
+        $fakeHash = '$2y$10$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+
+        /******************************************************
+         * 2. Usuario no encontrado → igualar tiempos
+         ******************************************************/
+        if ($stmt->rowCount() === 0) {
+            password_verify($password, $fakeHash);
+            return false;
+        }
+
+        /******************************************************
+         * 3. Obtener datos del usuario
+         ******************************************************/
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row || !isset($row['password'])) {
+            // Seguridad adicional: si falta la columna password
+            password_verify($password, $fakeHash);
+            return false;
+        }
+
+        /******************************************************
+         * 4. Verificar contraseña real
+         ******************************************************/
+        if (password_verify($password, $row['password'])) {
+
+            // Eliminar la contraseña antes de devolver datos
+            unset($row['password']);
+
+            return $row;
+        }
+
+        /******************************************************
+         * 5. Contraseña incorrecta → igualar tiempos
+         ******************************************************/
+        password_verify($password, $fakeHash);
         return false;
     }
-
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // 3. Verificar la contraseña hasheada
-    if (password_verify($password, $row['password'])) {
-        return $row; // Login correcto
-    }
-
-    return false; // Contraseña incorrecta
-}
 }

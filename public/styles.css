@@ -1,0 +1,98 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #4b79a1, #283e51);
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Tarjeta del login */
+.login-card {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 40px;
+    width: 380px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Textos */
+h3 {
+    color: #fff;
+    font-weight: 600;
+}
+
+label {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Inputs */
+.form-control {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    color: #fff;
+}
+
+.form-control::placeholder {
+    color: #e0e0e0;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.35);
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Botón */
+.btn-login {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    border: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0, 198, 255, 0.7);
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/*--------------------
+CREAR LIBRO
+----------------------*/
+/* FORMULARIOS CRUD CON ESTILO LOGIN */
+.btn-contraste {
+    background: #ffffff;
+    color: #283e51;
+    font-weight: bold;
+    border: none;
+    transition: 0.2s;
+}
+
+.btn-contraste:hover {
+    background: #e6e6e6;
+    transform: scale(1.02);
+}
+
+
+/* Tarjeta estilo glass como crear/editar */
+/* Tarjeta estilo glass */
