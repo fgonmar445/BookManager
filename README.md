@@ -44,6 +44,7 @@ BookManager:
 │   127_0_0_1.sql
 │   index.php
 │   README.md
+│   ayuda.txt (Fichero de ayuda con user y pass)
 │   
 │
 ├───config
