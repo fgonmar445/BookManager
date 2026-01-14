@@ -1,0 +1,9 @@
+------------------------------
+| USUARIO ACCESO BOOKMANAGER |
+------------------------------
+
+USUARIO: UsuarioDemo
+Contraseña: Segura1!
+
+Acceso BD: login-php
+Contraseña: 1234

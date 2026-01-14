@@ -123,4 +123,36 @@ class Libro
         // Confirmar que realmente se eliminó un registro
         return $stmt->rowCount() > 0;
     }
+
+    // MÉTODOS PARA EL DASHBOARD
+    public function contarLibros()
+    {
+        $stmt = $this->conn->query("SELECT COUNT(*) AS total FROM libros");
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function contarDisponibles()
+    {
+        $stmt = $this->conn->query("SELECT COUNT(*) AS total FROM libros WHERE disponible = 1");
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function precioPromedio()
+    {
+        $stmt = $this->conn->query("SELECT AVG(precio) AS promedio FROM libros");
+        return number_format($stmt->fetch(PDO::FETCH_ASSOC)['promedio'], 2);
+    }
+
+    public function libroMasCaro()
+    {
+        $stmt = $this->conn->query("SELECT titulo, precio FROM libros ORDER BY precio DESC LIMIT 1");
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function ultimosLibros()
+    {
+        $stmt = $this->conn->query("SELECT titulo, autor, fecha_publicacion FROM libros ORDER BY id DESC LIMIT 5");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
+

@@ -62,6 +62,13 @@ switch ($action) {
         $auth->logout();
         break;
 
+    case 'dashboard':
+        require_once __DIR__ . '/controllers/DashboardController.php';
+        $dash = new DashboardController();
+        $dash->index();
+        break;
+
+
 
     /* ------------------------------------------------------
      *  CRUD DE LIBROS

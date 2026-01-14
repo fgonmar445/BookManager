@@ -6,59 +6,128 @@ Incluye sistema de **autenticación segura**, protección CSRF, control de inten
 ---
 
 ## 🚀 Características principales
+### 🔐 Autenticación segura
+- Validación estricta de usuario y contraseña. 
+- Protección contra ataques CSRF. 
+- Regeneración periódica del ID de sesión. 
+- Control de intentos fallidos de login. - Hashing seguro con `password_verify()`. 
+- Prevención de _timing attacks_ mediante hash falso. 
+- Cabeceras de seguridad (XSS, MIME sniffing, framing). 
 
-- ✔️ Login seguro con contraseña hasheada (password_hash)
-- ✔️ Protección CSRF en formularios
-- ✔️ Control de intentos fallidos de inicio de sesión
-- ✔️ CRUD completo de libros (Crear, Leer, Editar, Eliminar)
-- ✔️ Confirmación de eliminación con SweetAlert2
-- ✔️ Redirecciones limpias y sin bucles
-- ✔️ Código organizado en MVC
-- ✔️ Bootstrap 5 para estilos
-- ✔️ Sesiones protegidas y regeneración de ID
+### 📘 Gestión de libros (CRUD) 
+- Crear, listar, editar y eliminar libros. 
+- Validación completa en backend. 
+- Validación en vivo con JavaScript. 
+- Confirmación de eliminación con SweetAlert2. 
+- Sanitización de entradas para evitar XSS. 
 
----
+### 🔧 Dashboard mejorado
+Dashboard con estadísticas y una tabla de los últimos libros añadidos.
+
+### 🎨 Interfaz moderna 
+- Diseño basado en **Bootstrap 5**. 
+- Layout reutilizable. 
+- Dashboard con tarjetas informativas. 
+- Tablas responsivas. 
+### 🧱 Arquitectura MVC Separación clara entre: 
+- **Modelos** (acceso a datos) 
+- **Controladores** (lógica) 
+- **Vistas** (interfaz)
+
+--- 
 
 ## 📂 Estructura del proyecto
+
 ```
+BookManager:
 │
-├── config/
-│   ├── auth.php
-│   ├── Database.php
-│   └── establecer-sesion.php
-│     
+│   127_0_0_1.sql
+│   index.php
+│   README.md
+│   
 │
+├───config
+│       auth.php
+│       Database.php
+│       establecer-sesion.php
 │
-├── controllers/
-│   ├── AuthController.php
-│   └── LibroController.php
+├───controllers
+│       AuthController.php
+│       DashboardController.php
+│       LibroController.php
 │
-├── models/
-│   ├── Libro.php
-│   └── User.php
+├───models
+│       Libro.php
+│       User.php
 │
+├───public
+│   │   styles.css
+│   │   validarLibro.js
+│   │   verificaciones.js
+│   │
+│   └───js
+│           libros.js
 │
-├── views/
-│       ├── crear.php
-│       ├── dashboard.php
-│       ├── editar.php
-│       ├── listar.php
-│       └── login.php
-│
-│
-├── index.php
-└── README.md
+└───views
+        crear.php
+        dashboard.php
+        editar.php
+        layout.php
+        listar.php
+        login.php
 ```
 
 ---
 
+## 🛠️ Tecnologías utilizadas
+
+- **PHP 8+**
+- **MySQL / MariaDB**
+- **PDO** (consultas preparadas)
+- **Bootstrap 5**
+- **JavaScript (validaciones + SweetAlert2)**
+
+---
+
+## 📦 Instalación
+
+### 1️⃣ Clonar el repositorio
+```
+git clone https://github.com/tuusuario/BookManager.git
+```
+
+### 2️⃣ Clonar el repositorio
+Importa la base de datos:
+```
+127_0_0_1.sql
+```
+
+### 3️⃣ Configurar credenciales
+Edita config/Database.php:
+```
+private $host = "localhost";
+private $db_name = "login-php";
+private $username = "login-php";
+private $password = "1234";
+```
+
+### 4️⃣ Configurar servidor local
+Coloca el proyecto en:
+```
+/htdocs/BookManager
+```
+
+### 5️⃣ Acceder a la aplicación
+```
+http://localhost/BookManager/index.php
+```
 ## 🛠️ Requisitos
 
-- PHP 7.4 o superior  
-- MySQL 5.7 o superior  
-- XAMPP, WAMP o similar  
-- Navegador moderno  
-- Extensión PDO habilitada  
+- PHP 7.4 o superior
+- MySQL 5.7 o superior
+- XAMPP, WAMP o similar
+- Navegador moderno
+- Extensión PDO habilitada
 
 ---
 
@@ -79,23 +148,28 @@ Esto garantiza que **ninguna contraseña se almacena en texto plano** y que el s
 
 ## ✔️ Protección contra ataques
 
-### 🔸 Prevención de SQL Injection  
+### 🔸 Prevención de SQL Injection
+
 Todas las consultas a la base de datos se realizan mediante **consultas preparadas (PDO)**.
 
-### 🔸 Prevención de XSS  
+### 🔸 Prevención de XSS
+
 Los datos enviados por el usuario se sanitizan con:
 
 - `htmlspecialchars()`
 - `trim()`
 
-### 🔸 Prevención de CSRF  
+### 🔸 Prevención de CSRF
+
 Cada formulario incluye un **token CSRF único por sesión**, evitando envíos maliciosos desde otros sitios.
 
-### 🔸 Prevención de fuerza bruta  
+### 🔸 Prevención de fuerza bruta
+
 El sistema cuenta con un **contador de intentos fallidos**.  
 Si se supera el límite, el usuario queda temporalmente bloqueado.
 
-### 🔸 Regeneración de sesión  
+### 🔸 Regeneración de sesión
+
 Al iniciar sesión correctamente, se ejecuta:
 
 ```php
@@ -108,12 +182,12 @@ Esto evita ataques de fijación de sesión.
 
 # ✔️ Flujo de autenticación
 
-- El usuario accede al formulario de login.  
-- Se valida el token CSRF.  
-- Se comprueba usuario y contraseña.  
-- Si las credenciales son correctas → se crea la sesión.  
-- Si son incorrectas → se incrementa el contador de intentos.  
-- Si se supera el límite → bloqueo temporal.  
+- El usuario accede al formulario de login.
+- Se valida el token CSRF.
+- Se comprueba usuario y contraseña.
+- Si las credenciales son correctas → se crea la sesión.
+- Si son incorrectas → se incrementa el contador de intentos.
+- Si se supera el límite → bloqueo temporal.
 
 ---
 
@@ -127,6 +201,7 @@ if (!isset($_SESSION['usuario_logueado']) || $_SESSION['usuario_logueado'] !== t
     exit();
 }
 ```
+
 ✔️ Solo usuarios autenticados pueden acceder al CRUD
 ✔️ Evita accesos directos a controladores o vistas
 
@@ -185,6 +260,7 @@ Cada formulario del CRUD aplica:
 Eliminación confirmada mediante SweetAlert2:
 
 js
+
 ```
 function confirmarEliminacion(id) {
     Swal.fire({
@@ -203,6 +279,7 @@ function confirmarEliminacion(id) {
     });
 }
 ```
+
 ---
 
 # 🎨 Estilos
@@ -216,6 +293,7 @@ SweetAlert2 para alertas modernas
 ---
 
 # 🧩 Mejoras futuras
+
 Roles de usuario (admin/lector)
 
 Paginación de libros

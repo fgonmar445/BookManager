@@ -31,25 +31,39 @@ header("X-XSS-Protection: 1; mode=block");
     <!-- NAVBAR (solo si no está oculto) -->
     <?php if (empty($hideNavbar)): ?>
         <nav class="navbar navbar-dark bg-dark">
-            <div class="container">
+            <div class="container d-flex justify-content-between align-items-center">
+
+                <!-- LOGO -->
                 <a class="navbar-brand" href="index.php?action=listar">
                     <i class="bi bi-book-half"></i> BookManager
                 </a>
 
                 <?php if (isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true): ?>
-                    <a href="index.php?action=logout" class="btn btn-outline-danger btn-sm">
-                        <i class="bi bi-box-arrow-right"></i> Cerrar sesión
-                    </a>
+                    <div class="d-flex align-items-center gap-2">
+
+                        <!-- BOTÓN DASHBOARD -->
+                        <a href="index.php?action=dashboard" class="btn btn-outline-light btn-sm">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+
+                        <!-- BOTÓN CERRAR SESIÓN -->
+                        <a href="index.php?action=logout" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                        </a>
+
+                    </div>
                 <?php endif; ?>
+
             </div>
         </nav>
     <?php endif; ?>
+
 
     <!-- CONTENIDO PRINCIPAL -->
     <?php if (!empty($noContainer)): ?>
         <?= $content ?>
     <?php else: ?>
-        <div class="container mt-4">
+        <div class="container mt-4 mb-5 pb-5">
             <?= $content ?>
         </div>
     <?php endif; ?>

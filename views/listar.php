@@ -26,7 +26,7 @@ ob_start();
 <div class="card shadow">
     <div class="card-body">
 
-        <div class="table-responsive">
+        <div class="table-responsive ">
             <table class="table table-striped table-hover align-middle">
                 <thead class="table-dark">
                     <tr>
