@@ -36,6 +36,28 @@ Dashboard con estadísticas y una tabla de los últimos libros añadidos.
 
 --- 
 
+## Capturas de la aplicacion.
+
+- A continuación se muestran unas capturas de las siguientes vistas de la aplicación
+
+### Login
+
+<img src="./img/login.jpg">
+
+### Lista
+
+<img src="./img/listar.jpg">
+
+### Editar
+
+<img src="./img/editar.jpg">
+
+### Crear
+
+<img src="./img/crear.jpg">
+
+---
+
 ## 📂 Estructura del proyecto
 
 ```
