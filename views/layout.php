@@ -22,8 +22,11 @@ header("X-XSS-Protection: 1; mode=block");
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <!-- Estilos propios -->
-    <link rel="stylesheet" href="./public/styles.css">
+    <?php
+    $base = rtrim(dirname($_SERVER['PHP_SELF']), '/');
+    ?>
+    <link rel="stylesheet" href="<?= $base ?>/public/styles.css">
+
 </head>
 
 <body class="<?= $bodyClass ?? '' ?>" style="min-height: 100vh; margin:0;">
@@ -71,8 +74,6 @@ header("X-XSS-Protection: 1; mode=block");
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Script propio -->
-    <script src="/BookManager/public/app.js"></script>
 
     <script>
         if (window.history.replaceState) {
