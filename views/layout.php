@@ -23,7 +23,7 @@ header("X-XSS-Protection: 1; mode=block");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <!-- Estilos propios -->
-    <link rel="stylesheet" href="/BookManager/public/styles.css">
+    <link rel="stylesheet" href="./public/styles.css">
 </head>
 
 <body class="<?= $bodyClass ?? '' ?>" style="min-height: 100vh; margin:0;">
