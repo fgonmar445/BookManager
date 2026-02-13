@@ -213,8 +213,8 @@ Para acceder a la aplicación por primera vez, utiliza estas credenciales:
 
 | Campo | Valor |
 |-------|-------|
-| **Usuario** | `admin` |
-| **Contraseña** | `admin123` |
+| **Usuario** | `UsuarioDemo` |
+| **Contraseña** | `Segura1!` |
 
 > ⚠️ **IMPORTANTE**: Se recomienda cambiar estas credenciales después del primer inicio de sesión por seguridad.
 
